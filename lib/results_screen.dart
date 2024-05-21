@@ -4,12 +4,13 @@ import 'package:flutter_and_dart_course/questions_summary.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.chosenAnswers, required this.onQuizRestart});
+  const ResultsScreen(
+      {super.key, required this.chosenAnswers, required this.onQuizRestart});
 
   final List<String> chosenAnswers;
   final void Function() onQuizRestart;
 
-  List<Map<String, Object>> getSummaryData() {
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswers.length; i++) {
@@ -26,11 +27,12 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     final int numTotalQuestions = questions.length;
-    final int numCorrectQuestions = summaryData.where((answer) {
-      return answer['correct_answer'] == answer['user_answer'];
-    }).length;
+    final int numCorrectQuestions = summaryData
+        .where(
+          (answer) => answer['correct_answer'] == answer['user_answer'],
+        )
+        .length;
 
     return SizedBox(
       width: double.infinity,
