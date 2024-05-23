@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_and_dart_course/utils/date_formatter.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
