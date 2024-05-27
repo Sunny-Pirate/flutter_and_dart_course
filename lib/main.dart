@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_and_dart_course/screens/categories.dart';
+import 'package:flutter_and_dart_course/screens/tabs.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final appTheme = ThemeData(
@@ -23,9 +24,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: appTheme,
       // home: const MealsScreen(title: 'Some cat', meals: dummyMeals),
-      home: const Scaffold(
-        body: CategoriesScreen(),
-      ),
+      home: const TabsScreen(),
     );
   }
 }

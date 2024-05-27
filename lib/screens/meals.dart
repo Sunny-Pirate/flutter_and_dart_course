@@ -4,13 +4,13 @@ import 'package:flutter_and_dart_course/screens/meal_details.dart';
 import 'package:flutter_and_dart_course/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, required this.title, required this.meals});
+  const MealsScreen({super.key, this.title, required this.meals});
 
-  final String title;
+  final String? title;
   final List<Meal> meals;
 
   void selectMeal(BuildContext context, Meal meal) {
-    Navigator.pop(context);
+    // Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -55,9 +55,13 @@ class MealsScreen extends StatelessWidget {
       );
     }
 
+    if (title == null) {
+      return content;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title!),
       ),
       body: content,
     );
