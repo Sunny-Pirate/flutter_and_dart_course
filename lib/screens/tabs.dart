@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_and_dart_course/models/meal.dart';
 import 'package:flutter_and_dart_course/screens/categories.dart';
 import 'package:flutter_and_dart_course/screens/meals.dart';
+import 'package:flutter_and_dart_course/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -20,9 +21,10 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  void _showInfoMessage(String message){
+  void _showInfoMessage(String message) {
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _toggleMealFavoriteStatus(Meal meal) {
@@ -57,14 +59,20 @@ class _TabsScreenState extends State<TabsScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(activePageTitle)),
+      drawer: const MainDrawer(),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPageIndex,
         onTap: _selectPage,
-        items: [
+        items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.set_meal), label: 'Categories'),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favorites'),
+            icon: Icon(Icons.set_meal),
+            label: 'Categories',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: 'Favorites',
+          ),
         ],
       ),
     );
