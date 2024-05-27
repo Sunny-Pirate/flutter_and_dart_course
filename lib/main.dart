@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_and_dart_course/data/dummy_data.dart';
-import 'package:flutter_and_dart_course/meals.dart';
+import 'package:flutter_and_dart_course/screens/categories.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final theme = ThemeData(
+final appTheme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.dark,
@@ -22,8 +21,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: theme,
-      home: const MealsScreen(title: 'Some cat', meals: dummyMeals),
+      theme: appTheme,
+      // home: const MealsScreen(title: 'Some cat', meals: dummyMeals),
+      home: const Scaffold(
+        body: CategoriesScreen(),
+      ),
     );
   }
 }
