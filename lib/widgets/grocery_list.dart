@@ -16,6 +16,7 @@ class GroceryList extends StatefulWidget {
 class _GroceryListState extends State<GroceryList> {
   List<GroceryItem> _groceryItems = [];
   bool _isLoading = true;
+  String? _error;
 
   @override
   void initState() {
@@ -29,14 +30,20 @@ class _GroceryListState extends State<GroceryList> {
       '/shopping-list.json',
     );
     final response = await http.get(url);
+    if (response.statusCode >= 400) {
+      setState(() {
+        _error = 'Failed to fetch data. Please try again later.';
+      });
+    }
+
     final Map<String, dynamic> listData = json.decode(response.body);
-    final List<GroceryItem> _loadedItems = [];
+    final List<GroceryItem> loadedItems = [];
     for (final item in listData.entries) {
       final category = categories.entries
           .firstWhere(
               (element) => element.value.label == item.value['category'])
           .value;
-      _loadedItems.add(GroceryItem(
+      loadedItems.add(GroceryItem(
         id: item.key,
         name: item.value['name'],
         quantity: item.value['quantity'],
@@ -44,7 +51,7 @@ class _GroceryListState extends State<GroceryList> {
       ));
     }
     setState(() {
-      _groceryItems = _loadedItems;
+      _groceryItems = loadedItems;
       _isLoading = false;
     });
   }
@@ -97,6 +104,10 @@ class _GroceryListState extends State<GroceryList> {
                   trailing: Text(_groceryItems[index].quantity.toString()),
                 ),
               ));
+    }
+
+    if (_error != null) {
+      content = Center(child: Text(_error!));
     }
 
     return Scaffold(
