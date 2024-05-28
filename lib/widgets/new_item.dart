@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_and_dart_course/data/categories.dart';
 import 'package:flutter_and_dart_course/models/category.dart';
-import 'package:flutter_and_dart_course/models/grocery_item.dart';
 import 'package:http/http.dart' as http;
 
 class NewItem extends StatefulWidget {
@@ -33,8 +32,14 @@ class _NewItemState extends State<NewItem> {
           'quantity': _enteredQuantity,
           'category': _selectedCategory.label
         }));
-    print(data);
-    Navigator.of(context).pop();
+
+
+    if (!context.mounted) {
+      return;
+    }
+    if (data.statusCode == 200) {
+      Navigator.of(context).pop();
+    }
   }
 
   @override
