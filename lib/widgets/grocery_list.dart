@@ -44,9 +44,6 @@ class _GroceryListState extends State<GroceryList> {
                 onDismissed: (direction) {
                   _removeItem(_groceryItems[index]);
                 },
-            secondaryBackground: Container(
-              color: ,
-            ),
                 background: Container(
                   color: Colors.red,
                 ),
