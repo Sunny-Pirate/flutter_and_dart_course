@@ -57,11 +57,18 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(height: 12),
                           ElevatedButton(
                             onPressed: () {},
-                            child: const Text('Signup'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.primaryContainer
+                            ),
+                            child: Text(_isLogin ? 'Login' :'Signup'),
                           ),
                           TextButton(
-                            onPressed: () {},
-                            child: const Text('Already registered. Login instead.'),
+                            onPressed: () {
+                              setState(() {
+                                _isLogin = !_isLogin;
+                              });
+                            },
+                            child: Text(_isLogin ? 'Create an account.'  :'Already registered. Login instead.'),
                           )
                         ],
                       ),
