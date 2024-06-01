@@ -8,6 +8,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  bool _isLogin = true;
   final _formKey = const ObjectKey(FormState);
 
   @override
@@ -53,6 +54,15 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             obscureText: true,
                           ),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Signup'),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text('Already registered. Login instead.'),
+                          )
                         ],
                       ),
                     ),
