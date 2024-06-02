@@ -25,8 +25,31 @@ class _AuthScreenState extends State<AuthScreen> {
     _formKey.currentState!.save();
 
     if (_isLogin) {
-      _firebase.signInWithEmailAndPassword(
-          email: _enteredEmail, password: _enteredPassword);
+      try {
+        _firebase.signInWithEmailAndPassword(
+            email: _enteredEmail, password: _enteredPassword);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'invalid-email') {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Your email address is not valid.')));
+        }
+        if (e.code == 'user-disabled') {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Your user account is disabled.')));
+        }
+        if (e.code == 'user-not-found') {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('The account was not found.')));
+        }
+        if (e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('The password you inserted is wrong.')));
+        }
+      }
     } else {
       try {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
@@ -120,7 +143,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               });
                             },
                             child: Text(_isLogin
-                                ? 'Create an account.'
+                                ? 'Not registered yet? Create an account.'
                                 : 'Already registered. Login instead.'),
                           )
                         ],
