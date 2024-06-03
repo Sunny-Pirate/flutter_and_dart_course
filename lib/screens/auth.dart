@@ -60,7 +60,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .set({
           'username': _enteredUsername,
           'email': _enteredEmail,
-          imageUrl: imageUrl
+          'imageUrl': imageUrl
         });
       }
     } on FirebaseAuthException catch (e) {
@@ -151,7 +151,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             TextFormField(
                               decoration: const InputDecoration(
                                 labelText: 'Username',
-                              ), 
+                              ),
                               enableSuggestions: false,
                               validator: (value) {
                                 if (value == null ||
