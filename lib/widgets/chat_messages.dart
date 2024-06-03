@@ -1,15 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_and_dart_course/widgets/message_bubble.dart';
 
 class ChatMessages extends StatelessWidget {
   const ChatMessages({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final authenticatedUser = FirebaseAuth.instance.currentUser!;
+
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('chat')
-          .orderBy('createdAt', descending: false)
+          .orderBy('createdAt', descending: true)
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -27,8 +31,24 @@ class ChatMessages extends StatelessWidget {
         final loadedMessages = snapshot.data!.docs;
 
         return ListView.builder(
+          reverse: true,
           itemBuilder: (context, index) {
-            return Text(loadedMessages[index].data()['text']);
+            final chatMessage = loadedMessages[index].data();
+            final nextChatMsg = (index + 1) < loadedMessages.length
+                ? loadedMessages[index + 1].data()
+                : null;
+            final currentMsgUserId = chatMessage['userId'];
+            final nextMsgUserId = nextChatMsg != null
+                ? nextChatMsg['userId']
+                : null;
+            final nextUserIsSame = nextMsgUserId == currentMsgUserId;
+
+            if (nextUserIsSame) {
+              return MessageBubble.next(message: chatMessage['text'],
+                  isMe: authenticatedUser.uid == currentMsgUserId);
+            } else {
+              return MessageBubble.first(userImage: chatMessage['userImage'], username: chatMessage['userName'], message: chatMessage['text'], isMe: authenticatedUser.uid == currentMsgUserId);
+            }
           },
           itemCount: loadedMessages.length,
         );
