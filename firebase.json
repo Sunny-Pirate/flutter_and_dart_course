@@ -1,1 +1,39 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"flutter-chat-app-c03af","appId":"1:924607037443:android:23f43130a1db23c1128e36","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"flutter-chat-app-c03af","configurations":{"android":"1:924607037443:android:23f43130a1db23c1128e36","web":"1:924607037443:web:b96324f0ffd4bc10128e36","windows":"1:924607037443:web:aaf86dea7991fea6128e36"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "flutter-chat-app-c03af",
+          "appId": "1:924607037443:android:23f43130a1db23c1128e36",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "flutter-chat-app-c03af",
+          "configurations": {
+            "android": "1:924607037443:android:23f43130a1db23c1128e36",
+            "web": "1:924607037443:web:b96324f0ffd4bc10128e36",
+            "windows": "1:924607037443:web:aaf86dea7991fea6128e36"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ]
+    }
+  ]
+}
